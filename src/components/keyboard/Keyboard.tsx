@@ -25,6 +25,10 @@ export const keyboardButtons = {
 const initialDisabledButtons = ["÷", "x", "="];
 export const allOperationButton = ["÷", "x", "+", "-", "="];
 
+const isOperation = (val: string) => {
+  return !!allOperationButton.find((sign) => sign === val);
+};
+
 interface KeyboardProps {
   onNumber(t: string): void;
   onSign(): void;
@@ -70,7 +74,7 @@ const Keyboard: FunctionComponent<KeyboardProps> = ({
       {Object.values(keyboardButtons).map((val) => {
         return (
           <button
-            className={`btn-${val}`}
+            className={`btn-${val} ${isOperation(val) ? "btn-operator" : ""}`}
             key={val}
             onClick={() => onHandleClick(val)}
             disabled={isDisabled(val)}
